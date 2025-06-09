@@ -1,8 +1,9 @@
-import { useMiniAppContext } from "@/hooks/use-miniapp-context";
-import { APP_URL } from "@/lib/constants";
+import { useFrame } from '@/components/farcaster-provider'
+import { APP_URL } from '@/lib/constants'
+import { useMutation } from '@tanstack/react-query'
 
 export function FarcasterActions() {
-  const { actions } = useMiniAppContext();
+  const { actions } = useFrame()
 
   return (
     <div className="space-y-4 border border-[#333] rounded-md p-4">
@@ -11,22 +12,25 @@ export function FarcasterActions() {
         {actions ? (
           <div className="flex flex-col space-y-4 justify-start">
             <button
+              type="button"
               className="bg-white text-black rounded-md p-2 text-sm"
               onClick={() => actions?.addFrame()}
             >
               addFrame
             </button>
             <button
+              type="button"
               className="bg-white text-black rounded-md p-2 text-sm"
               onClick={() => actions?.close()}
             >
               close
             </button>
             <button
+              type="button"
               className="bg-white text-black rounded-md p-2 text-sm"
               onClick={() =>
                 actions?.composeCast({
-                  text: "Check out this Monad Farcaster MiniApp Template!",
+                  text: 'Check out this Monad Farcaster MiniApp Template!',
                   embeds: [`${APP_URL}`],
                 })
               }
@@ -34,18 +38,23 @@ export function FarcasterActions() {
               composeCast
             </button>
             <button
+              type="button"
               className="bg-white text-black rounded-md p-2 text-sm"
-              onClick={() => actions?.openUrl("https://docs.monad.xyz")}
+              onClick={() => actions?.openUrl('https://docs.monad.xyz')}
             >
               openUrl
             </button>
             <button
+              type="button"
               className="bg-white text-black rounded-md p-2 text-sm"
-              onClick={() => actions?.signIn({ nonce: "1201" })}
+              onClick={() =>
+                actions?.signIn({ nonce: '1201', acceptAuthAddress: true })
+              }
             >
               signIn
             </button>
             <button
+              type="button"
               className="bg-white text-black rounded-md p-2 text-sm"
               onClick={() => actions?.viewProfile({ fid: 17979 })}
             >
@@ -57,5 +66,5 @@ export function FarcasterActions() {
         )}
       </div>
     </div>
-  );
+  )
 }
